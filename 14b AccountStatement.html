@@ -1,0 +1,86 @@
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<head>
+	<title>Account Statement</title>
+   <!--Made with love by Mutiullah Samim -->
+   
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+
+<html>
+	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:50px;left: 450px;width: 550px;">
+		<div class="card">
+			<div class="card-header">
+				
+				<h3>Account Statement</h3>
+				</div>
+			<div class="card-body">
+				<form>
+					<div class="input-group form-group">
+						
+						<label style="position:relative;left:10px;" id="acc">Account Id </label>
+						<select id="acc" style="position:relative;left:10px;"class="form-control">
+							<option value="50000001">50000001</option>
+							<option value="50000002">50000002</option>
+							<option value="50000003">50000003</option>
+							<option value="50000004">50000004</option>
+						</select>
+					</div>
+					
+						
+						<label style="position:relative;left:10px;">Start Date: </label>
+						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="06/01/2016" readonly="readonly">
+					</div>
+					<div class="input-group form-group">
+						
+						<label style="position:relative;left:10px;">End Date </label>
+						<input type="text" style="position:relative;left:10px;"class="form-control" required="07/01/2016">
+					</div>
+					<div class="form-group">
+						<button type="submit" style="position:relative;left:100px;class="btn float-center login_btn">Submit</button>
+					<div class="input-group form-group">
+						<table border="1">
+						<thead>
+							<tr>
+								<td> Transaction Id </td>
+								<td> Description</td>
+								<td> Date </td>
+								<td> Ammount </td>
+						</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td> 10001 </td>
+								<td> Withdraw</td>
+								<td> 06/01/2016 </td>
+								<td> 100 </td>
+						</tr>
+						<tr>
+								<td> 10004 </td>
+								<td> Deposit</td>
+								<td> 06/01/2016 </td>
+								<td> 300</td>
+						</tr>
+						</tbody>
+					</table>
+</div>
+					<div class="form-group">
+						<button type="submit" class="btn float-left  login_btn">Download as PDF</button>
+						<button type="submit"   class="btn float-right  login_btn">Download as Excel</button>
+						
+					</div>
+				</form>
+			</div>
+		</div>
+	</div></div>
+</html>
