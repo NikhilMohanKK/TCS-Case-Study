@@ -23,24 +23,22 @@
 				<h3>Create Customer</h3>
 				</div>
 			<div class="card-body">
-				<form>
+				<form method="post">
 					<div class="input-group form-group">
 						<label style="position:relative;">Customer Id :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required >
+						<input type="text" name="custid" style="position:relative;left:10px;"class="form-control" required >
 						
 					</div>
 					<div class="input-group form-group">
-						<label style="position:relative;">Deposit Amount :  </label>
-						<select list="acttypes" style="position:relative;left:10px;"class="form-control" required placeholder="Account Type">
+						<label style="position:relative;">Account Type :  </label>
+						<select list="acttypes" name="acttype" style="position:relative;left:10px;"class="form-control" required placeholder="Account Type">
 						 	<option id="savact">Savings Account</option>
-						  	<option id="chkact">Checking Account</option>
-						   	<option id="mrkact">Market Account</option>
-						    <option id="crtdpt">Certificate of Deposit</option>
+						  	<option id="chkact">Current Account</option>
 						</select>
 					</div>
 					<div class="input-group form-group">
 						<label style="position:relative;">Deposit Amount :  </label>
-						<input type="number" style="position:relative;left:10px;"class="form-control" required placeholder="Number Input">
+						<input type="number" name="amount" style="position:relative;left:10px;"class="form-control" required placeholder="Number Input">
 					</div>
 						<div class="form-group">
 						<button type="submit" class="btn float-right  login_btn">Submit</button>
