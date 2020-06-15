@@ -37,35 +37,18 @@
     </tr>
   </thead>
   <tbody>
+    {% for actid in userdet %}
     <tr>
-      <td>120003001</td>
-      <td>0</td>
-      <td>Current</td>
-      <td>pending</td>
+      <td>{{actid[0]}}</td>
+      <td>{{actid[1]}}</td>
+      <td>{% if actid[2]=='s'%} Savings Account {%else %} Current Account {%endif%}</td>
       <td></td>
       <td></td>
-      <td><a href="#">Refresh</a></td>
-    </tr>
-    <tr>
-      <td>120003001</td>
-      <td>0</td>
-      <td>Current</td>
-      <td>pending</td>
-      <td></td>
-      <td></td>
-      <td><a href="#">Refresh</a></td>
-    </tr>
-    <tr>
-      <td>120003001</td>
-      <td>0</td>
-      <td>Current</td>
-      <td>pending</td>
-      <td></td>
-      <td></td>
+      <td>{{actid[2]}}</td>
       <td><a href="#">Refresh</a></td>
     </tr>
   </tbody>
-</table>
+{% endfor %}</table>
 
 			</div>
 		</div>
