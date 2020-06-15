@@ -23,19 +23,18 @@
 				<h3>Delete Account</h3>
 				</div>
 			<div class="card-body">
-				<form>
+				<form method="post">
 					<div class="input-group form-group">
 						<label style="position:relative;">Account ID :  </label>
-						<select list="acttypes" style="position:relative;left:10px;"class="form-control" required placeholder="Account Type">
-						 	<option id="savact">120003001</option>
-						  	<option id="chkact">120003002</option>
-						   	<option id="mrkact">120003003</option>
-						    <option id="crtdpt">120003004</option>
+						<select list="acttypes" name="selectact" style="position:relative;left:10px;"class="form-control" required placeholder="Account ID">
+							{% for actid in userdet %}
+						 	<option id="">{{actid[0]}}</option>
+							{% endfor %}
 						</select>
 					</div>
 					<div class="input-group form-group">
 						<label style="position:relative;">Account Type :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="Confirm Account Type">
+						<input type="text" style="position:relative;left:10px;"class="form-control" name="confirmtype" required placeholder="Confirm Account Type">
 					</div>
 						<div class="form-group">
 						<button type="submit" class="btn float-right  login_btn">Delete Account</button>
