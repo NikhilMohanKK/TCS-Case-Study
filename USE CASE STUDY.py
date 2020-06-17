@@ -19,7 +19,7 @@ app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 
-
+account=None
 
 mysql = MySQL(app)
 
@@ -46,12 +46,15 @@ def loginpage():
     return render_template('01 Login Page.html')
 
 
+
+
+
 @app.route('/createacct',methods = ['POST', 'GET'])
 def createacctpage():
     if request.method == 'POST':
         userDetails = request.form
         #print(userDetails)
-        Customer_id= userDetails['custid']
+        Customer_id=str(userDetails['custid'])
         
         Actype = userDetails['acttype']
         if(Actype=='Current Account'):
@@ -78,7 +81,7 @@ def createacctpage():
         
     #return redirect(url_for('create_table'))"""
     return render_template('06 Create Account.html')
-    
+ 
 
 @app.route('/deleteaccount',methods = ['POST', 'GET'])
 def deleteacctpage():
@@ -90,9 +93,7 @@ def deleteacctpage():
             selecttype='c'
         elif(selecttype=='Savings Account'):
             selecttype='s'
-        print(type(selectedact))
-        print(selectedact)
-        print(selecttype)
+        global account
         cur = mysql.connection.cursor()
         resultValue=cur.execute("select * from Account where ws_acct_id=%s",[selectedact])
         if resultValue > 0:
@@ -108,13 +109,16 @@ def deleteacctpage():
         else:
             return "No such Account"
         cur.close()
-"""    res=cpl.execute("select ws_acct_id from Account")
-    if(res>0):
-        dets=cpl.fetchall()
-        print(dets)
-    cpl.close()
-    return render_template('07 Delete Account.html',userdet=dets)
-"""
+    print("HELLOWORLD")
+    global account
+    return render_template('07 Delete Account.html',actid=account)
+    """    res=cpl.execute("select ws_acct_id from Account")
+        if(res>0):
+            dets=cpl.fetchall()
+            print(dets)
+        cpl.close()
+        return render_template('07 Delete Account.html',userdet=dets)
+    """
     #return redirect(url_for('create_table'))"""
     
 
@@ -130,18 +134,29 @@ def world():
 
 
 
-@app.route('/accountsearch',methods=["GET","POST"])
-def searchacc():
+@app.route('/accountsearch/<int:check>',methods=["GET","POST"])
+def searchacc(check):
     if request.method == 'POST':
         userDetails = request.form
+        acctid=None
+        custid=None
         acctid=userDetails['actid']
-        custid=userDetails['cstid']
+        custid=str(userDetails['cstid'])
+        print(acctid)
+        print(custid)
         cur = mysql.connection.cursor()
-        resultValue=cur.execute("select * from Account where ws_acct_id=%s or ws_cust_id=%s",[acctid,custid])
+        resultValue=cur.execute("select * from Account where ws_acct_id=%s OR ws_cust_id like %s",[acctid,custid])
+        global account
         if resultValue>0:
-            dets=cur.fetchone()
+            account=cur.fetchone()
             #return render_template('08 Account Status.html',userdet=dets)    
-            return render_template('07 Delete Account.html',userdet=dets)
+            if check==1:
+                #return render_template('07 Delete Account.html',userdet=dets)
+                return redirect(url_for('deleteacctpage'))
+            elif check==2:
+                return render_template('11 Deposit Amount.html',userdet=dets)
+            elif check==3:
+                return render_template('12 Withdraw Amount.html',userdet=dets)
         else:
             return "Customer Doesnt Exist"
         #return render_template('08 Account Status.html',userdet=dets)    
@@ -151,9 +166,19 @@ def searchacc():
 
 
 
-@app.route('/depositmoney',methods=["GET","POST"])
+@app.route('/depositmoney')
 def deposit():
-    return render_template('11 Deposit Money.html')
+    chk=2
+    return redirect(url_for('searchacc',check = chk))
+
+@app.route('/depositafter',methods=["GET","POST"])
+def confirmdep():
+    if request.method == 'POST':
+        userDetails = request.form
+        updamt=userDetails['depamt']
+        print(updamt)
+        
+
 
 
 @app.route('/')
