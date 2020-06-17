@@ -27,9 +27,7 @@
 					<div class="input-group form-group">
 						<label style="position:relative;">Account ID :  </label>
 						<select list="acttypes" name="selectact" style="position:relative;left:10px;"class="form-control" required placeholder="Account ID">
-							{% for actid in userdet %}
-						 	<option id="">{{actid[0]}}</option>
-							{% endfor %}
+						 	<option id="">{{actid[1]}}</option>
 						</select>
 					</div>
 					<div class="input-group form-group">
