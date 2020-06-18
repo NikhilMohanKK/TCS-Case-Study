@@ -399,7 +399,9 @@ def confirmwit():
         cur = mysql.connection.cursor()
         z=cur.execute("select * from Account where ws_acct_id=%s and ws_acct_balance - %s >-1 ",[acctid,updamt])
         if z==0:
-            return("insufficient balance")
+            hmsg="Withdrawal Failed"
+            hmsg2="Insufficient Balance"
+            return redirect('/homepage')
         cur.execute("update Account set ws_acct_balance = ws_acct_balance - %s where ws_acct_id=%s",[updamt,acctid])
         mysql.connection.commit()
         stringval="Withdrawn "+updamt+" from Account"
