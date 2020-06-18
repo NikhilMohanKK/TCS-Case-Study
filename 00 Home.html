@@ -1,0 +1,69 @@
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+<html>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-brand"><a class="navbar-brand" href="#" style="color:yellow">FedChoice Bank</a></div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav justify-content-end">
+      <li class="nav-item active">
+        <a class="nav-link" href="/homepage" style="left:600px;">Home <span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Customer Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/createcustomer">Create Customer</a>
+          <a class="dropdown-item" href="/customersearch/1">Update Customer</a>
+          <a class="dropdown-item" href="/customersearch/2">Delete Customer</a>
+        </div>
+      </li>
+
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Account Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/createacct">Create Account</a>
+          <a class="dropdown-item" href="/accountsearch/1">Delete Account</a>
+        </div>
+      </li>      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Status Details
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/customerstatus">Customer Status</a>
+          <a class="dropdown-item" href="/accountstatus">Account Status</a>
+          <a class="dropdown-item" href="/accountstatementA">Account Statement</a>
+        </div>
+      </li>
+<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Account Operations
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/depositmoney">Deposit</a>
+          <a class="dropdown-item" href="/withdrawmoney">Withdraw</a>
+          <a class="dropdown-item" href="/transfermoney">Transfer</a>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/logout" style="left:600px;">Logout<span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+<h2 style="position:relative;top:200px;left:40%;">{{HomeMessage}}</h2>
+<div style="position:relative;top:250px;left:35%;width:500px;">
+<h2 class="text-center">{{HomeMessage2}}</h2></div>
+</html>
