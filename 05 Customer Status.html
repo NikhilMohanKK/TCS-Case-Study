@@ -3,10 +3,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
-	<title>Customer Status</title>
+	<title>Create Customer Page</title>
    <!--Made with love by Mutiullah Samim -->
    
 	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="styles.css">
 
 
 <html><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -17,7 +24,7 @@
   <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
     <ul class="navbar-nav justify-content-end">
       <li class="nav-item active">
-        <a class="nav-link" href="#" style="left:600px;">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/homepage" style="left:600px;">Home <span class="sr-only">(current)</span></a>
       </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -37,7 +44,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/createacct">Create Account</a>
-          <a class="dropdown-item" href="/deleteaccount">Delete Account</a>
+          <a class="dropdown-item" href="/accountsearch/1">Delete Account</a>
         </div>
       </li>      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -66,7 +73,8 @@
     </ul>
   </div>
 </nav>
-	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:120px;left:280px;height:500px;overflow-y: scroll;">
+<html>
+	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:80px;left:280px;">
 		<div class="card">
 			<div class="card-header">
 				<h3>Customer Status</h3>
@@ -74,7 +82,8 @@
 			<div class="card-body">
 				<table class="table">
   <thead class="thead-dark">
-    <tr>
+    
+  <tr>
       <th scope="col">Customer Id</th>
       <th scope="col">Customer SSN ID</th>
       <th scope="col">Status</th>
@@ -84,35 +93,21 @@
       <th scope="col">View Profile</th>
 
     </tr>
+
+    
   </thead>
   <tbody>
+    {% for user in userDetails %}
     <tr>
-      <td>120003001</td>
-      <td>0</td>
-      <td>Current</td>
-      <td>pending</td>
-      <td></td>
-      <td><a href="#">Refresh</a></td>
-      <td><a href="#">View Profile</a></td>
+      <td> {{user[0]}} </td>
+      <td> {{user[1]}} </td>
+      <td> {{user[2]}} </td>
+      <td> {{user[3]}} </td>
+      <td> {{user[4]}} </td>
+      <td>Refreh</td>
+      <td>View Details</td>
     </tr>
-    <tr>
-      <td>120003001</td>
-      <td>0</td>
-      <td>Current</td>
-      <td>pending</td>
-      <td></td>
-      <td><a href="#">Refresh</a></td>
-      <td><a href="#">View Profile</a></td>
-    </tr>
-    <tr>
-      <td>120003001</td>
-      <td>0</td>
-      <td>Current</td>
-      <td>pending</td>
-      <td></td>
-      <td><a href="#">Refresh</a></td>
-      <td><a href="#">View Profile</a></td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
 
