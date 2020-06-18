@@ -1,68 +1,114 @@
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
 	<title>Deposit Money Page</title>
    <!--Made with love by Mutiullah Samim -->
-   
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  
 
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="styles.css">
+<html><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-brand"><a class="navbar-brand" href="#" style="color:yellow">FedChoice Bank</a></div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav justify-content-end">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" style="left:600px;">Home <span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Customer Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/createcustomer">Create Customer</a>
+          <a class="dropdown-item" href="/customersearch/1">Update Customer</a>
+          <a class="dropdown-item" href="/customersearch/2">Delete Customer</a>
+        </div>
+      </li>
 
 
-<html>
-	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:50px;left: 450px;width: 550px;">
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Account Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/createacct">Create Account</a>
+          <a class="dropdown-item" href="/deleteaccount">Delete Account</a>
+        </div>
+      </li>      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Status Details
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/customerstatus">Customer Status</a>
+          <a class="dropdown-item" href="/accountstatus">Account Status</a>
+          <a class="dropdown-item" href="/accountstatementA">Account Statement</a>
+        </div>
+      </li>
+<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Account Operations
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/depositmoney">Deposit</a>
+          <a class="dropdown-item" href="/withdrawmoney">Withdraw</a>
+          <a class="dropdown-item" href="/transfermoney">Transfer</a>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/logout" style="left:600px;">Logout<span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:120px;left: 450px;width: 550px;">
 		<div class="card">
 			<div class="card-header">
 				
-				<h3>Withdraw Amount</h3>
+				<h3>Deposit Amount</h3>
 				</div>
 			<div class="card-body">
-				<form>
+				<form method="post">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 							
 						</div>
+						    
 						<label style="position:relative;left:10px;">Customer Id :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="120003122" readonly="readonly" >
+						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="120003122" value="{{actid[0]}}" readonly="readonly" >
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 						</div>
 						<label style="position:relative;left:10px;">Account Id </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="5000011100" readonly="readonly">
+						<input type="text" style="position:relative;left:10px;"class="form-control" name="acct" value="{{actid[1]}}" required placeholder="5000011100" readonly="readonly">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 						</div>
 						<label style="position:relative;left:10px;">Account Type </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="Savings" readonly="readonly">
+						<input type="text" style="position:relative;left:10px;"class="form-control" value="{% if actid[2]=='s'%} Savings Account {%else %} Current Account {%endif%}"required placeholder="Savings" readonly="readonly">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 						</div>
 						<label style="position:relative;left:10px;">Balance </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="30000" readonly="readonly">
+						<input type="text" style="position:relative;left:10px;"class="form-control" value="{{actid[3]}}" required placeholder="30000" readonly="readonly">
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 						</div>
 						<label style="position:relative;left:10px;">Withdraw Amount: </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control">
+						<input type="text" name="depamt"style="position:relative;left:10px;"class="form-control">
 					</div>
-
 					<div class="form-group">
 						<button type="submit"  style="position:relative;left:200px;" class="btn float-left  login_btn">View</button>
 					</div>
