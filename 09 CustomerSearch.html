@@ -1,3 +1,4 @@
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -7,7 +8,6 @@
    <!--Made with love by Mutiullah Samim -->
    
 
-
 <html><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="navbar-brand"><a class="navbar-brand" href="#" style="color:yellow">FedChoice Bank</a></div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,7 +16,7 @@
   <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
     <ul class="navbar-nav justify-content-end">
       <li class="nav-item active">
-        <a class="nav-link" href="#" style="left:600px;">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/homepage" style="left:600px;">Home <span class="sr-only">(current)</span></a>
       </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -36,7 +36,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/createacct">Create Account</a>
-          <a class="dropdown-item" href="/deleteaccount">Delete Account</a>
+          <a class="dropdown-item" href="/accountsearch/1">Delete Account</a>
         </div>
       </li>      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -65,6 +65,7 @@
     </ul>
   </div>
 </nav>
+	
 	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:120px;left: 450px;width: 550px;">
 		<div class="card">
 			<div class="card-header">
@@ -72,14 +73,14 @@
 				<h3>Update Customer</h3>
 				--></div>
 			<div class="card-body">
-				<form>
+				<form method="POST" >
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 							
 						</div>
 						<label style="position:relative;left:10px;">Enter Customer SSN Id :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control">
+						<input type="text" style="position:relative;left:10px;"class="form-control"name="ssnid">
 					</div>
 					<label style="position:relative;left:100px;">OR </label>
 					<div class="input-group form-group">
@@ -87,7 +88,7 @@
 						
 						</div>
 						<label style="position:relative;left:10px;">Enter Customer Id :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control">
+						<input type="text" style="position:relative;left:10px;"class="form-control" name="custid">
 					</div>
 					<div class="form-group">
 						<button type="submit"  style="position:relative;left:200px;" class="btn float-left  login_btn">View</button>
