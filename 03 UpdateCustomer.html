@@ -3,7 +3,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
-	<title>Update Customer Page</title>
+	<title>Create Customer Page</title>
    <!--Made with love by Mutiullah Samim -->
    
 	<!--Bootsrap 4 CDN-->
@@ -24,7 +24,7 @@
   <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
     <ul class="navbar-nav justify-content-end">
       <li class="nav-item active">
-        <a class="nav-link" href="#" style="left:600px;">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/homepage" style="left:600px;">Home <span class="sr-only">(current)</span></a>
       </li>
         <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -44,7 +44,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="/createacct">Create Account</a>
-          <a class="dropdown-item" href="/deleteaccount">Delete Account</a>
+          <a class="dropdown-item" href="/accountsearch/1">Delete Account</a>
         </div>
       </li>      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -73,29 +73,29 @@
     </ul>
   </div>
 </nav>
+<html>
 	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:120px;left: 450px;width: 550px;">
 		<div class="card">
 			<div class="card-header">
 				<h3>Update Customer</h3>
 				</div>
 			<div class="card-body">
-				<form>
+				<form method="POST">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
 						<label style="position:relative;left:10px;">Customer SSN Id :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="120003122" readonly="readonly">
-						
+						<label style="position:relative;left:10px;">{{ssnid}}</label>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
 						<label style="position:relative;left:10px;">Customer Id :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="1838814" readonly="readonly">
-					</div>
+						<label style="position:relative;left:10px;">{{custid}}</label>
+									</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							
@@ -103,14 +103,14 @@
 					
 						</div>
 						<label style="position:relative;left:10px;">Old Customer Name :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="a kumar" readonly="readonly">
+						<label style="position:relative;left:10px;">{{name}}</label>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
 						<label style="position:relative;left:10px;">New Customer Name :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" >
+						<input type="text" style="position:relative;left:10px;"class="form-control" required name="name" >
 					</div>
 
                     <div class="input-group form-group">
@@ -118,28 +118,28 @@
 							<span class="input-group-text"><i class="fas fa fa-map-marker"></i></span>
 						</div>
 						<label style="position:relative;left:10px;">Old Address :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="3rd street" readonly="readonly" >
+						<label style="position:relative;left:10px;">{{adr}}</label>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa fa-map-marker"></i></span>
 						</div>
 						<label style="position:relative;left:10px;">New Address :  </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" >
+						<input type="text" style="position:relative;left:10px;"class="form-control" required name="adr" >
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-child"></i></span>
 						</div>
 						<label style="position:relative;left:10px;"> Old Age :  </label>
-						<input type="number" style="position:relative;left:10px;"class="form-control" required placeholder="19" readonly="readonly">
+						<label style="position:relative;left:10px;">{{age}}</label>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fa fa-child"></i></span>
 						</div>
 						<label style="position:relative;left:10px;">Age :  </label>
-						<input type="number" style="position:relative;left:10px;"class="form-control" >
+						<input type="number" style="position:relative;left:10px;"class="form-control" required name="age" >
 					</div>
 					<div class="form-group">
 						<button type="submit" style="position:relative;left:200px;" class="btn float-left  login_btn">Update</button>
