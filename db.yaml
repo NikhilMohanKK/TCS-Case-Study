@@ -1,0 +1,5 @@
+mysql_host: 'localhost'
+mysql_user: 'rootuser'
+# Enter your password in field below
+mysql_password: 'terriffic'
+mysql_db: 'employeedb'
