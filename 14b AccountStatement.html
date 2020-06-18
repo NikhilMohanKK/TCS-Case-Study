@@ -1,86 +1,146 @@
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
 	<title>Account Statement</title>
    <!--Made with love by Mutiullah Samim -->
    
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="styles.css">
 
 
-<html>
-	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:50px;left: 450px;width: 550px;">
+<html><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-brand"><a class="navbar-brand" href="#" style="color:yellow">FedChoice Bank</a></div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+    <ul class="navbar-nav justify-content-end">
+      <li class="nav-item active">
+        <a class="nav-link" href="#" style="left:600px;">Home <span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Customer Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/createcustomer">Create Customer</a>
+          <a class="dropdown-item" href="/customersearch/1">Update Customer</a>
+          <a class="dropdown-item" href="/customersearch/2">Delete Customer</a>
+        </div>
+      </li>
+
+
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Account Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/createacct">Create Account</a>
+          <a class="dropdown-item" href="/deleteaccount">Delete Account</a>
+        </div>
+      </li>      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Status Details
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/customerstatus">Customer Status</a>
+          <a class="dropdown-item" href="/accountstatus">Account Status</a>
+          <a class="dropdown-item" href="/accountstatementA">Account Statement</a>
+        </div>
+      </li>
+<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Account Operations
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/depositmoney">Deposit</a>
+          <a class="dropdown-item" href="/withdrawmoney">Withdraw</a>
+          <a class="dropdown-item" href="/transfermoney">Transfer</a>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/logout" style="left:600px;">Logout<span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+	<div class="container"><div class="d-flex justify-content-center h-60" style="position:fixed;top:120px;left: 450px;width: 550px;">
 		<div class="card">
 			<div class="card-header">
 				
 				<h3>Account Statement</h3>
 				</div>
 			<div class="card-body">
-				<form>
+				<form method="post">
 					<div class="input-group form-group">
+						<label style="position:relative;">Account Id :  </label>
+						<input type="text" name="acctid" style="position:relative;left:10px;"class="form-control" required >
 						
-						<label style="position:relative;left:10px;" id="acc">Account Id </label>
-						<select id="acc" style="position:relative;left:10px;"class="form-control">
-							<option value="50000001">50000001</option>
-							<option value="50000002">50000002</option>
-							<option value="50000003">50000003</option>
-							<option value="50000004">50000004</option>
-						</select>
 					</div>
 					
+					<div class="input-group form-group">
 						
 						<label style="position:relative;left:10px;">Start Date: </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="06/01/2016" readonly="readonly">
+						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="06/01/2016" name="start">
 					</div>
 					<div class="input-group form-group">
 						
 						<label style="position:relative;left:10px;">End Date </label>
-						<input type="text" style="position:relative;left:10px;"class="form-control" required="07/01/2016">
+						<input type="text" style="position:relative;left:10px;"class="form-control" required placeholder="07/01/2016" name ="end">
 					</div>
 					<div class="form-group">
 						<button type="submit" style="position:relative;left:100px;class="btn float-center login_btn">Submit</button>
-					<div class="input-group form-group">
-						<table border="1">
-						<thead>
-							<tr>
-								<td> Transaction Id </td>
-								<td> Description</td>
-								<td> Date </td>
-								<td> Ammount </td>
-						</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td> 10001 </td>
-								<td> Withdraw</td>
-								<td> 06/01/2016 </td>
-								<td> 100 </td>
-						</tr>
-						<tr>
-								<td> 10004 </td>
-								<td> Deposit</td>
-								<td> 06/01/2016 </td>
-								<td> 300</td>
-						</tr>
-						</tbody>
-					</table>
+					</div>
+				</form>
+				</div>
+				
+				<div class="card-body">
+					<table class="table">
+							<thead class="thead-dark">
+							  <tr>
+								<th scope="col">Transaction_id</th>
+								<th scope="col">description</th>
+								<th scope="col">Date(YYYY-MM-DD)</th>
+								<th scope="col">Amount</th>
+								
+						  
+							  </tr>
+						  
+							  
+							</thead>
+							<tbody>
+							  {% for user in userDetails %}
+							  <tr>
+								<td>{{user[0]}}</td>
+							   
+								  {% if user[2] =='t' %}
+								  <td>Transfer</td>
+								   {% elif user[2] =='w' %}
+								   <td>Withdraw</td>
+								  {% else %}
+								  <td>Deposit</td>
+							  {% endif %}
+									
+							  
+							   
+								<td> {{user[4].date()}} </td>
+								<td> {{user[3]}} </td>
+								
+							   
+								
+							  </tr>
+							  {% endfor %}
+							</tbody>
+						  </table>
 </div>
 					<div class="form-group">
 						<button type="submit" class="btn float-left  login_btn">Download as PDF</button>
 						<button type="submit"   class="btn float-right  login_btn">Download as Excel</button>
 						
 					</div>
-				</form>
-			</div>
+				
+			
 		</div>
 	</div></div>
 </html>
