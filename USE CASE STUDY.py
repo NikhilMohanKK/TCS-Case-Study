@@ -9,6 +9,9 @@ Created on Sat Jun 13 22:30:43 2020
 from flask import Flask, render_template, request,redirect, url_for
 from flask_mysqldb import MySQL
 import yaml
+
+
+
 app=Flask(__name__)
     
 
@@ -20,14 +23,17 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 
 account=None
+logged=None
 aid=None
 cid=None
 transamt=None
+hmsg=None
+hmsg2=""
 
 mysql = MySQL(app)
 
 
-@app.route('/login',methods = ['POST', 'GET'])
+@app.route('/',methods = ['POST', 'GET'])
 def loginpage():
     if request.method == 'POST':
         userDetails = request.form
@@ -35,18 +41,33 @@ def loginpage():
         Login_id = userDetails['username']
         password = userDetails['password']
         cur = mysql.connection.cursor()
-        resultValue = cur.execute("select password from userstore where loginname=%s",[Login_id])
+        resultValue = cur.execute("select Password from userstore where Login=%s",[Login_id])
         if resultValue > 0:
             print("this also works")
             userDetails = cur.fetchone()
         print(userDetails)
         cur.close()
+        global logged
+        global hmsg
+        if logged==1:
+            return ("Already Logged In:")
         if password in userDetails:
-            return ('SUCCUSS')
+            logged=1
+            hmsg="Logged In Successfully"
+            return redirect('/homepage')
         else:
-            return ('ERROR')
+            return ("Input Error")
     #return redirect(url_for('create_table'))
     return render_template('01 Login Page.html')
+
+
+
+@app.route('/homepage')
+def homepage():
+    global hmsg
+    global hmsg2
+    return render_template("00 Home.html",HomeMessage=hmsg,HomeMessage2=hmsg2)
+
 
 @app.route('/createcustomer', methods=['GET', 'POST'])
 def createcustomer():
@@ -67,23 +88,33 @@ def createcustomer():
             cur.execute("insert into customerstatus(ws_ssn_id,ws_cust_id,Status,Message) values (%s,%s,%s,%s)",(userDetails["ssn_id"],cust_id,"Active","customer created succussfully"))
             mysql.connection.commit()
             cur.close()
-            return('succuss')
-        else:
-            return('error')
+            global hmsg
+            global hmsg2
+            hmsg="Customer Created Successfully"
+            hmsg2=""
+            return redirect('/homepage')
+        elif (len(userDetails["ssn_id"])!=9):
+            hmsg="Customer Creation Failed."
+            hmsg2="SSN Id length should be 9 digits"
+            return redirect('/homepage')
+        elif (z!=0):
+            hmsg="Customer Creation Failed."
+            hmsg2="SSN Id already taken"
+            return redirect('/homepage')
         
     return render_template('02 Create Customer.html')
 @app.route('/customersearch/<int:check>', methods=['GET', 'POST'])
 def customersearchupdate(check):
     if request.method == 'POST':
         # Fetch form data
-        global user
-        global duser 
+        global customer
         userDetails = dict(request.form)
         print(userDetails)
         ssnid=userDetails['ssnid']
         custid=userDetails['custid']
         cur = mysql.connection.cursor()
-        
+        global hmsg
+        global hmsg2
         if(ssnid=='' and custid==''):
             return('error')
         if(ssnid!='' and custid!=''):
@@ -95,20 +126,24 @@ def customersearchupdate(check):
            
 
         if(custid!=''):
-            z=cur.execute("SELECT * FROM Customer WHERE  ws_cust_id=%s",(userDetails['custid'],))
+            z=cur.execute("SELECT * FROM ustomer WHERE  ws_cust_id=%s",(userDetails['custid'],))
        
         if check==1:
             if(z==0):
-                return('NO CUSTOMER')
+                hmsg="Customer Updation Failed."
+                hmsg2="NO CUSTOMER. "
+                return redirect('/homepage')
             else:
-                user =cur.fetchone()
-                print(user)
+                customer =cur.fetchone()
+                print(customer)
                 return redirect('/updatecustomer')
         if check==2:
             if(z==0):
-                return('NO CUSTOMER')
+                hmsg="Customer Updation Failed."
+                hmsg2="NO CUSTOMER. "
+                return redirect('/homepage')
             else:
-                duser =cur.fetchone()
+                customer =cur.fetchone()
                 return redirect('/deletecustomer')
         #return redirect('/updatecustomer')
         cur.close() 
@@ -118,36 +153,44 @@ def customersearchupdate(check):
 def updatecustomer():
     
     global customer
-    print(user)
+    print(customer)
     if request.method == 'POST':
         # Fetch form data
         userDetails = dict(request.form)
         print(userDetails)
         cur = mysql.connection.cursor()
-        cur.execute("UPDATE customer SET ws_name = %s, ws_adrs= %s,ws_age=%s WHERE ws_cust_id =%s",(userDetails['name'],userDetails['adr'],userDetails['age'],user[1]))
+        cur.execute("UPDATE customer SET ws_name = %s, ws_adrs= %s,ws_age=%s WHERE ws_cust_id =%s",(userDetails['name'],userDetails['adr'],userDetails['age'],customer[1]))
         mysql.connection.commit()
-        cur.execute("UPDATE customerstatus set Status=%s,Message=%s,Last_Updates=CURRENT_TIMESTAMP where ws_cust_id =%s",("Active","customer update complete",user[1],))
+        cur.execute("UPDATE customerstatus set Status=%s,Message=%s,Last_Updates=CURRENT_TIMESTAMP where ws_cust_id =%s",("Active","customer update complete",customer[1],))
         mysql.connection.commit()
         cur.close()
-        return('succuss')
+        global hmsg
+        global hmsg2
+        hmsg="Customer Updation Successful. "
+        hmsg2=""
+        return redirect('/homepage')
     return render_template('03 UpdateCustomer.html',ssnid=customer[0],custid=customer[1],name=customer[2],adr=customer[3],age=customer[4])
 
 @app.route('/deletecustomer', methods=['GET', 'POST'])
 def deletecustomer():
-    global duser
-    print(duser)
+    global customer
+    print(customer)
     if request.method == 'POST':
         # Fetch form data
         userDetails = dict(request.form)
         print(userDetails)
         cur = mysql.connection.cursor()
-        cur.execute("delete from customer  WHERE  ws_cust_id=%s",(duser[1],))
+        cur.execute("delete from customer  WHERE  ws_cust_id=%s",(customer[1],))
         mysql.connection.commit()
-        cur.execute("UPDATE customerstatus set Status=%s,Message=%s,Last_Updates=CURRENT_TIMESTAMP where ws_cust_id =%s",("Active","customer deleted successfully",duser[1]))
+        cur.execute("UPDATE customerstatus set Status=%s,Message=%s,Last_Updates=CURRENT_TIMESTAMP where ws_cust_id =%s",("Active","customer deleted successfully",customer[1]))
         mysql.connection.commit()
         cur.close()
-        return('succuss')
-    return render_template('04 Delete Customer.html',ssnid=duser[0],name=duser[2],adr=duser[3],age=duser[4])
+        global hmsg
+        global hmsg2
+        hmsg="Customer Deletion Successful. "
+        hmsg2=""
+        return redirect('/homepage')
+    return render_template('04 Delete Customer.html',ssnid=customer[0],name=customer[2],adr=customer[3],age=customer[4])
 
 @app.route('/customerstatus')
 def customerstatus():
@@ -160,6 +203,8 @@ def customerstatus():
 
 @app.route('/createacct',methods = ['POST', 'GET'])
 def createacctpage():
+    global hmsg
+    global hmsg2
     if request.method == 'POST':
         userDetails = dict(request.form)
         print(userDetails)
@@ -181,10 +226,12 @@ def createacctpage():
                 cur.execute("insert into Account (ws_cust_id,ws_acct_type,ws_acct_balance) values(%s,%s,%s)",(Customer_id,AccountType,DepAmount))
                 mysql.connection.commit()
             else:
-                return ("Account Exist")
+                
+                hmsg="Account Creation Failed."
+                hmsg2="Account Already Exists "
+                return redirect('/homepage')
             dataval=cur.execute("select * from Account where ws_cust_id=%s",[Customer_id])
             if dataval>0:
-                print("MOER THAN WON")
                 singledet=cur.fetchone()
                 print(singledet[1])
                 
@@ -192,10 +239,13 @@ def createacctpage():
                 cur.execute("insert into AccountStatus (ws_cust_id,ws_acct_id,ws_acct_type,Status,Message) values(%s,%s,%s,%s,%s)",(Customer_id,singledet[1],AccountType,"Active",Message))
                 mysql.connection.commit()
             cur.close()
-            return "SUCCESS:"
+            hmsg="Account Creation Successful"
+            hmsg2=""
+            return redirect('/homepage')
         else:
-            return "no customer"
-        
+            hmsg="Account Creation Failed."
+            hmsg2="No Customer with given Credentials"
+            return redirect('/homepage')
     #return redirect(url_for('create_table'))"""
     return render_template('06 Create Account.html')
 
@@ -210,6 +260,8 @@ def deleteacctpage():
             selecttype='c'
         elif(selecttype=='Savings Account'):
             selecttype='s'
+        global hmsg
+        global hmsg2
         global account
         cur = mysql.connection.cursor()
         resultValue=cur.execute("select * from Account where ws_acct_id=%s",[selectedact])
@@ -222,11 +274,14 @@ def deleteacctpage():
                 mysql.connection.commit()
                 cur.execute("update AccountStatus set Status=%s,Message=%s where ws_acct_id=%s and ws_acct_type=%s",[newstatus,Message,selectedact,selecttype])
                 mysql.connection.commit()
-                return "Deleted:"
+                hmsg="Account Deletion Successful"
+                hmsg2=""
+            return redirect('/homepage')
         else:
-            return "No such Account"
+            hmsg="Account Deletion Failed."
+            hmsg2="No such Account"
+            return redirect('/homepage')
         cur.close()
-    print("HELLOWORLD")
     global account
     return render_template('07 Delete Account.html',actid=account)
     """    res=cpl.execute("select ws_acct_id from Account")
@@ -238,19 +293,6 @@ def deleteacctpage():
     """
     #return redirect(url_for('create_table'))"""
     
-
-@app.route('/')
-def hello():
-    chk=1
-    return redirect(url_for('searchacc',check = chk))
-
-@app.route('/world')
-def world():
-    chk=2
-    return redirect(url_for('searchacc',check = chk))
-
-
-
 @app.route('/accountsearch/<int:check>',methods=["GET","POST"])
 def searchacc(check):
     if request.method == 'POST':
@@ -259,6 +301,8 @@ def searchacc(check):
         custid=None
         acctid=userDetails['actid']
         custid=str(userDetails['cstid'])
+        global hmsg
+        global hmsg2
         global cid
         cid=custid
         global aid
@@ -288,7 +332,9 @@ def searchacc(check):
             elif check==4:
                 return redirect(url_for('confirmtrn'))
         else:
-            return "Customer Doesnt Exist"
+            hmsg="Customer Search Failed."
+            hmsg2="No Customer with given Credentials"
+            return redirect('/homepage')
         #return render_template('08 Account Status.html',userdet=dets)    
     return render_template('10 Account Search.html')
 
@@ -307,6 +353,8 @@ def confirmdep():
     global cid
     global aid
     global account
+    global hmsg
+    global hmsg2
     if request.method == 'POST':
         userDetails = request.form
         acctid=int(userDetails['acct'])
@@ -327,7 +375,9 @@ def confirmdep():
         aid=None
         transamt=None
         account=None
-        return "Deposited Successfully"
+        hmsg="Money Deposition Successful."
+        hmsg2=""
+        return redirect('/homepage')
     return render_template('11 Deposit Amount.html',actid=account)
                 
 @app.route('/withdrawmoney')
@@ -339,12 +389,17 @@ def withdraw():
 def confirmwit():
     global cid
     global aid
+    global hmsg
+    global hmsg2
     global account
     if request.method == 'POST':
         userDetails = request.form
         acctid=int(userDetails['acct'])
         updamt=userDetails['depamt']
         cur = mysql.connection.cursor()
+        z=cur.execute("select * from Account where ws_acct_id=%s and ws_acct_balance - %s >-1 ",[acctid,updamt])
+        if z==0:
+            return("insufficient balance")
         cur.execute("update Account set ws_acct_balance = ws_acct_balance - %s where ws_acct_id=%s",[updamt,acctid])
         mysql.connection.commit()
         stringval="Withdrawn "+updamt+" from Account"
@@ -360,7 +415,10 @@ def confirmwit():
         aid=None
         transamt=None
         account=None
-        return "Withdrawn Successfully"
+        hmsg="Money Withdrawal Successful."
+        hmsg2=""
+        return redirect('/homepage')
+
     return render_template('12 Withdraw Amount.html',actid=account)
 
 @app.route('/transfermoney')
@@ -406,30 +464,19 @@ def confirmtrn():
         aid=None
         transamt=None
         customer=None
-        return "Transferred Successfully"
+        global hmsg
+        global hmsg2
+        hmsg="Money transfer Successful."
+        hmsg2=""
+        return redirect('/homepage')
     return render_template('13 Transfer Money.html',custid=customer)
-
-
-@app.route('/')
-def deletetry():
-    value=3
-    type='c'
-    cur = mysql.connection.cursor()
-    cur.execute("Delete from Account where ws_acct_id=%s and ws_acct_type=%s",[value,type])
-    mysql.connection.commit()
-                
-
-@app.route('/abcdefghi/',methods=["POST","GET"])
-def statement():
-    if request.method == 'POST':
-        userDetails = request.form
-        print(userDetails)
-    return render_template('14b AccountStatement.html')  
 
 
 
 @app.route('/accountstatementA',methods=["GET","POST"])
 def accountstatementA():
+    global hmsg
+    global hmsg2
     global aid
     if request.method == 'POST':
         userDetails = dict(request.form)
@@ -445,7 +492,10 @@ def accountstatementA():
                 
                 return render_template('14a Acount Statement.html',userDetails=res)
             else:
-                return("NO TRANSACTIONS YET")
+                hmsg="No Transactions yet for the given account."
+                hmsg2=""
+                return redirect('/homepage')
+
             
         else:
             return redirect('/accountstatementB')
@@ -457,6 +507,8 @@ def accountstatementA():
 @app.route('/accountstatementB',methods=["GET","POST"])
 def accountstatementB():
     global aid
+    global hmsg
+    global hmsg2
     if request.method == 'POST':
         userDetails =dict(request.form)
         print(userDetails)
@@ -473,7 +525,9 @@ def accountstatementB():
             
             return render_template('14a Acount Statement.html',userDetails=res)
         else:
-            return("NO TRANSACTIONS YET")
+                hmsg="No Transactions yet for the given account."
+                hmsg2=""
+                return redirect('/homepage')
             
        
         cur.close()
@@ -494,9 +548,9 @@ def accountstatus():
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    global z
-    z=0
-    return redirect('/login')
+    global logged
+    logged=0
+    return redirect('/')
 
 
 if __name__=='__main__':
